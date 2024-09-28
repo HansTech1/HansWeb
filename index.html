@@ -4,9 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hans Tech</title>
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS styles from previous example, unchanged */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.5s;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .thumbnail {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+        .buttons {
+            margin: 20px 0;
+        }
+        .like-section, .comments {
+            margin: 20px 0;
+            padding: 10px;
+            border-top: 1px solid #333;
+        }
+        .like-btn, .submit-btn {
+            background-color: #6200ea;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .like-btn:hover, .submit-btn:hover {
+            background-color: #3700b3;
+        }
+        #commentInput {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            margin-top: 10px;
+            transition: border-color 0.3s;
+        }
+        #commentInput:focus {
+            border-color: #6200ea;
+            outline: none;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #2a2a2a;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        li:hover {
+            background: #3a3a3a;
+        }
     </style>
 </head>
 <body>
@@ -15,7 +94,7 @@
         <h1>Hans Tech: Your Ultimate Tech Hub</h1>
         <p>Welcome to Hans Tech! Dive into the latest trends, tutorials, and epic discussions in tech. Join us for giveaways and ethical hacking sessions!</p>
         <div class="buttons">
-            <!-- Button links unchanged -->
+            <!-- Button links can be added here -->
         </div>
         <div class="like-section">
             <button id="likeBtn" class="like-btn">❤️</button>
@@ -32,7 +111,6 @@
         </div>
     </div>
     <script>
-        // Retrieve initial data from local storage
         let likeCount = localStorage.getItem('likeCount') ? parseInt(localStorage.getItem('likeCount')) : 0;
         let hasLiked = localStorage.getItem('hasLiked') === 'true';
         const commentList = JSON.parse(localStorage.getItem('comments')) || [];
@@ -42,7 +120,6 @@
             document.getElementById('likeBtn').classList.add('liked');
         }
 
-        // Like button functionality
         document.getElementById('likeBtn').addEventListener('click', () => {
             if (!hasLiked) {
                 likeCount++;
@@ -54,13 +131,11 @@
             }
         });
 
-        // Comment input toggle
         document.getElementById('toggleCommentInput').addEventListener('click', () => {
             const commentInputContainer = document.getElementById('commentInputContainer');
             commentInputContainer.style.display = commentInputContainer.style.display === 'none' ? 'block' : 'none';
         });
 
-        // Adding comments
         document.getElementById('addCommentBtn').addEventListener('click', () => {
             const commentInput = document.getElementById('commentInput');
             const commentText = commentInput.value.trim();
@@ -69,15 +144,14 @@
                 commentList.push(commentText);
                 localStorage.setItem('comments', JSON.stringify(commentList));
                 displayComments();
-                commentInput.value = ''; // Clear the input
-                document.getElementById('commentInputContainer').style.display = 'none'; // Hide input after submit
+                commentInput.value = '';
+                document.getElementById('commentInputContainer').style.display = 'none';
             }
         });
 
-        // Display comments on page load
         function displayComments() {
             const commentListElement = document.getElementById('commentList');
-            commentListElement.innerHTML = ''; // Clear the current list
+            commentListElement.innerHTML = '';
             commentList.forEach(comment => {
                 const li = document.createElement('li');
                 li.textContent = comment;
@@ -85,7 +159,6 @@
             });
         }
 
-        // Show comments on page load
         displayComments();
     </script>
 </body>
