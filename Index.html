@@ -4,7 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hans Tech</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-image: url('https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            text-align: center;
+        }
+
+        .thumbnail {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            margin: 10px;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px #007bff;
+        }
+
+        .like-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .like-btn {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .like-btn.liked {
+            background-color: #365899;
+        }
+
+        .like-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        #toggleCommentInput {
+            margin: 10px 0;
+        }
+
+        #commentInputContainer {
+            margin-top: 10px;
+        }
+
+        #commentInput {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,16 +168,50 @@
             <a href="https://github.com/HaroldMth/Hans-bug-bot" class="btn">Hans Bug</a>
         </div>
         <div class="like-section">
-            <button id="likeBtn" class="like-btn">Like</button>
+            <button id="likeBtn" class="like-btn">👍🏾</button>
             <span id="likeCount">0</span> Likes
         </div>
         <div class="comments">
             <h3>Comments</h3>
-            <textarea id="commentInput" placeholder="Add a comment..."></textarea>
-            <button id="addCommentBtn">Submit</button>
+            <button id="toggleCommentInput" class="submit-btn">Add a Comment</button>
+            <div id="commentInputContainer" style="display: none;">
+                <textarea id="commentInput" placeholder="Add a comment..."></textarea>
+                <button id="addCommentBtn" class="submit-btn">Submit</button>
+            </div>
             <ul id="commentList"></ul>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        let likeCount = 0;
+
+        document.getElementById('likeBtn').addEventListener('click', () => {
+            likeCount++;
+            document.getElementById('likeCount').textContent = likeCount;
+
+            const likeBtn = document.getElementById('likeBtn');
+            likeBtn.classList.toggle('liked');
+        });
+
+        document.getElementById('toggleCommentInput').addEventListener('click', () => {
+            const commentInputContainer = document.getElementById('commentInputContainer');
+            commentInputContainer.style.display = commentInputContainer.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('addCommentBtn').addEventListener('click', () => {
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+
+            if (commentText) {
+                const commentList = document.getElementById('commentList');
+                const newComment = document.createElement('li');
+                newComment.textContent = commentText;
+                commentList.appendChild(newComment);
+                commentInput.value = ''; // Clear the input
+                document.getElementById('commentInputContainer').style.display = 'none'; // Hide input after submit
+            } else {
+                alert("Please enter a comment.");
+            }
+        });
+    </script>
 </body>
 </html>
