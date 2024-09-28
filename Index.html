@@ -4,130 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hans Tech</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: url('https://i.ibb.co/vLQ5Y2s/f4e14ec0-f07c-49bc-b22b-f6c61bf4cf9e.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            overflow-y: auto;
-            max-height: 90vh;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .btn-group {
-            margin-bottom: 20px;
-        }
-        .btn-group a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #00adb5;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all 0.3s ease-in-out;
-        }
-        .btn-group a:hover {
-            background-color: #ff5722;
-        }
-        .like-btn {
-            font-size: 1.5rem;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .like-btn:hover {
-            color: #ff5722;
-        }
-        .comment-section {
-            margin-top: 20px;
-        }
-        .comment-section input {
-            width: 80%;
-            padding: 10px;
-            border-radius: 15px;
-            border: none;
-        }
-        .comment-section button {
-            padding: 10px;
-            border-radius: 15px;
-            background-color: #00adb5;
-            color: white;
-            border: none;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .comment-section button:hover {
-            background-color: #ff5722;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <img src="https://telegra.ph/file/bdfa0a5d2ad52646fbd84.jpg" alt="Hans Tech" style="width:100px; border-radius: 50%; margin-bottom: 20px;">
-        <h1>Hans Tech 🚀💻</h1>
-        <p>Your Ultimate Tech Hub</p>
-        <p>Stay ahead with the coolest tutorials, giveaways, and pro tips. Level up your tech game in the most stylish way!</p>
-        
-        <div class="btn-group">
-            <a href="https://t.me/hans_tech2" target="_blank">Telegram</a>
-            <a href="https://wa.me/HaroldMth" target="_blank">WhatsApp</a>
-            <a href="https://github.com/HaroldMth" target="_blank">GitHub</a>
-            <a href="https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O" target="_blank">WhatsApp Channel</a>
-            <a href="https://t.me/hanstech0" target="_blank">Telegram Channel</a>
-            <a href="https://github.com/HaroldMth/hans-v2" target="_blank">Hans V2</a>
-            <a href="https://github.com/HaroldMth/Hans-bug-bot" target="_blank">Hans Bug</a>
+        <img src="https://telegra.ph/file/bdfa0a5d2ad52646fbd84.jpg" alt="Hans Tech" class="thumbnail">
+        <h1>Hans Tech: Your Ultimate Tech Hub</h1>
+        <p>Welcome to Hans Tech! Dive into the latest trends, tutorials, and epic discussions in tech. Join us for giveaways and ethical hacking sessions!</p>
+        <div class="buttons">
+            <a href="https://t.me/hans_tech2" class="btn">Telegram</a>
+            <a href="https://wa.me/HaroldMth" class="btn">WhatsApp</a>
+            <a href="https://github.com/HaroldMth" class="btn">GitHub</a>
+            <a href="https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O" class="btn">WhatsApp Channel</a>
+            <a href="https://t.me/hanstech0" class="btn">Telegram Channel</a>
+            <a href="https://github.com/HaroldMth/hans-v2" class="btn">Hans V2</a>
+            <a href="https://github.com/HaroldMth/Hans-bug-bot" class="btn">Hans Bug</a>
         </div>
-
-        <div class="like-btn" onclick="likePost()">❤️ Like <span id="like-count">0</span></div>
-        
-        <div class="comment-section">
-            <input type="text" id="comment" placeholder="Add a comment...">
-            <button onclick="addComment()">Submit</button>
-            <div id="comments"></div>
+        <div class="like-section">
+            <button id="likeBtn" class="like-btn">Like</button>
+            <span id="likeCount">0</span> Likes
+        </div>
+        <div class="comments">
+            <h3>Comments</h3>
+            <textarea id="commentInput" placeholder="Add a comment..."></textarea>
+            <button id="addCommentBtn">Submit</button>
+            <ul id="commentList"></ul>
         </div>
     </div>
-
-    <script>
-        let likeCount = 0;
-
-        function likePost() {
-            likeCount++;
-            document.getElementById('like-count').innerText = likeCount;
-        }
-
-        function addComment() {
-            const commentInput = document.getElementById('comment');
-            const commentText = commentInput.value;
-            if (commentText.trim() !== "") {
-                const commentDiv = document.createElement('div');
-                commentDiv.textContent = commentText;
-                document.getElementById('comments').appendChild(commentDiv);
-                commentInput.value = "";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
-  </html>
+</html>
