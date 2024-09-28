@@ -134,55 +134,49 @@
     </div>
     
     <script>
-        let likeCount = localStorage.getItem('likeCount') ? parseInt(localStorage.getItem('likeCount')) : 0;
-        let hasLiked = localStorage.getItem('hasLiked') === 'true';
-        const commentList = JSON.parse(localStorage.getItem('comments')) || [];
+        // Fetch initial data from the server
+        fetch('https://stellar-omniscient-wormhole.glitch.me/api/data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('likeCount').textContent = data.likes; // Display initial likes
+                data.comments.forEach(comment => {
+                    const li = document.createElement('li');
+                    li.textContent = comment;
+                    document.getElementById('commentList').appendChild(li);
+                });
+            });
 
-        document.getElementById('likeCount').textContent = likeCount;
-        if (hasLiked) {
-            document.getElementById('likeBtn').classList.add('liked');
-        }
-
+        // Update likes
         document.getElementById('likeBtn').addEventListener('click', () => {
-            if (!hasLiked) {
-                likeCount++;
-                document.getElementById('likeCount').textContent = likeCount;
-                document.getElementById('likeBtn').classList.add('liked');
-                localStorage.setItem('likeCount', likeCount);
-                localStorage.setItem('hasLiked', 'true');
-                hasLiked = true;
-            }
+            fetch('https://stellar-omniscient-wormhole.glitch.me/api/like', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('likeCount').textContent = data.likes; // Update like count
+                });
         });
 
+        // Add a comment
+        document.getElementById('addCommentBtn').addEventListener('click', () => {
+            const comment = document.getElementById('commentInput').value;
+            fetch('https://stellar-omniscient-wormhole.glitch.me/api/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comment })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const li = document.createElement('li');
+                li.textContent = comment; // Add new comment to the list
+                document.getElementById('commentList').appendChild(li);
+                document.getElementById('commentInput').value = ''; // Clear input
+            });
+        });
+
+        // Toggle comment input
         document.getElementById('toggleCommentInput').addEventListener('click', () => {
             const commentInputContainer = document.getElementById('commentInputContainer');
             commentInputContainer.style.display = commentInputContainer.style.display === 'none' ? 'block' : 'none';
         });
-
-        document.getElementById('addCommentBtn').addEventListener('click', () => {
-            const commentInput = document.getElementById('commentInput');
-            const commentText = commentInput.value.trim();
-
-            if (commentText) {
-                commentList.push(commentText);
-                localStorage.setItem('comments', JSON.stringify(commentList));
-                displayComments();
-                commentInput.value = '';
-                document.getElementById('commentInputContainer').style.display = 'none';
-            }
-        });
-
-        function displayComments() {
-            const commentListElement = document.getElementById('commentList');
-            commentListElement.innerHTML = '';
-            commentList.forEach(comment => {
-                const li = document.createElement('li');
-                li.textContent = comment;
-                commentListElement.appendChild(li);
-            });
-        }
-
-        displayComments();
     </script>
 </body>
 </html>
