@@ -41,6 +41,19 @@
         .buttons {
             margin: 20px 0;
         }
+        .btn {
+            display: inline-block;
+            background-color: #6200ea;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #3700b3;
+        }
         .like-section, .comments {
             margin: 20px 0;
             padding: 10px;
@@ -93,13 +106,22 @@
         <img src="https://telegra.ph/file/bdfa0a5d2ad52646fbd84.jpg" alt="Hans Tech" class="thumbnail">
         <h1>Hans Tech: Your Ultimate Tech Hub</h1>
         <p>Welcome to Hans Tech! Dive into the latest trends, tutorials, and epic discussions in tech. Join us for giveaways and ethical hacking sessions!</p>
+        
         <div class="buttons">
-            <!-- Button links can be added here -->
+            <a href="https://t.me/hans_tech2" class="btn">Telegram</a>
+            <a href="https://wa.me/HaroldMth" class="btn">WhatsApp</a>
+            <a href="https://github.com/HaroldMth" class="btn">GitHub</a>
+            <a href="https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O" class="btn">WhatsApp Channel</a>
+            <a href="https://t.me/hanstech0" class="btn">Telegram Channel</a>
+            <a href="https://github.com/HaroldMth/hans-v2" class="btn">Hans V2</a>
+            <a href="https://github.com/HaroldMth/Hans-bug-bot" class="btn">Hans Bug</a>
         </div>
+        
         <div class="like-section">
             <button id="likeBtn" class="like-btn">❤️</button>
             <span id="likeCount">0</span> Likes
         </div>
+        
         <div class="comments">
             <h3>Comments</h3>
             <button id="toggleCommentInput" class="submit-btn">Add a Comment</button>
@@ -110,6 +132,7 @@
             <ul id="commentList"></ul>
         </div>
     </div>
+    
     <script>
         let likeCount = localStorage.getItem('likeCount') ? parseInt(localStorage.getItem('likeCount')) : 0;
         let hasLiked = localStorage.getItem('hasLiked') === 'true';
